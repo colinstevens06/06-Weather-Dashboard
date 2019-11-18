@@ -1,5 +1,10 @@
-var cityUserInput = $("#city-input")
-var cityInputButton = $("#city-input-button")
+var previousCitySearches = [];
+var currentCitySearch = "";
+
+var cityUserInput = $("#city-input");
+var cityInputButton = $("#city-input-button");
+
+console.log(cityUserInput)
 
 
 
@@ -7,13 +12,27 @@ var cityInputButton = $("#city-input-button")
 
 function getPreviousCities() {
 
-}
+};
 
-function storeData() {
-   var userInput = cityUserInput.value();
+function storeData(event) {
+   event.preventDefault()
+   console.log(cityUserInput)
 
-   localStorage.setItem("city", userInput)
+   var userInput = cityUserInput.value;
 
-}
+   console.log(userInput)
 
-cityInputButton.on("click", storeData)
+   // currentCitySearch = "";
+   // currentCitySearch = userInput;
+
+   // if (userInput === "") {
+   //    alert("Please put in a valid city")
+   // }
+
+   // previousCitySearches.push(userInput);
+
+   // localStorage.setItem("city", JSON.stringify(userInput))
+
+};
+
+cityInputButton.on("click", storeData);
