@@ -8,9 +8,6 @@ var cityTodaysTemperature = $("#todays-temperature")
 var cityTodaysWindSpeed = $("#todays-wind-speed")
 var cityTodaysUvIndex = $("#todays-uv-index")
 
-
-
-
 // Write Functions Here
 
 function getPreviousCities() {
@@ -94,7 +91,8 @@ function presentTodaysWeatherData(event) {
          method: "GET"
       }).then(
          function (response) {
-
+            console.log(response)
+            
          }
       )
    }, 500);
