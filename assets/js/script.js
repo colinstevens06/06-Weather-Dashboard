@@ -7,6 +7,11 @@ var cityTodaysDate = $("#todays-date")
 var cityTodaysTemperature = $("#todays-temperature")
 var cityTodaysWindSpeed = $("#todays-wind-speed")
 var cityTodaysUvIndex = $("#todays-uv-index")
+var dayOneDisplayDiv = $("#day-one-display")
+var dayOneDisplayDiv = $("#day-two-display")
+var dayOneDisplayDiv = $("#day-three-display")
+var dayOneDisplayDiv = $("#day-four-display")
+var dayOneDisplayDiv = $("#day-five-display")
 
 // Write Functions Here
 
@@ -77,7 +82,6 @@ function presentTodaysWeatherData(event) {
          method: "GET"
       }).then(
          function (response) {
-            console.log(response)
             cityTodaysUvIndex.text("UV Index: " + response.value);
          }
       )
@@ -92,7 +96,26 @@ function presentTodaysWeatherData(event) {
       }).then(
          function (response) {
             console.log(response)
-            
+            console.log(response.list[4].dt)
+
+            // get date
+            var date1 = new Date(response.list[4].dt * 1000);
+            var month1 = date1.getMonth();
+            var day1 = date1.getDay();
+            var year1 = date1.getFullYear();
+
+            var formattedDate1 = month1 + "/" + day1 + "/" + year1;
+
+            console.log(formattedDate1)
+
+
+
+            // get icon for weather
+            // get temperature
+            // get humidity
+            // append it to the card
+
+
          }
       )
    }, 500);
