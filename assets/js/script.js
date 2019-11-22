@@ -98,21 +98,27 @@ function presentTodaysWeatherData(event) {
             console.log(response)
             console.log(response.list[4].dt)
 
-            // get date
+            // this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
+            var baseIconURL = "http://openweathermap.org/img/wn/"
+
+            // get date. I'm takinga UNIX code, multiplying that number by 1000 to get milliseconds instead of seconds, then using JavaScript date functions to get the data I need.
             var date1 = new Date(response.list[4].dt * 1000);
             var month1 = date1.getMonth();
             var day1 = date1.getDay();
             var year1 = date1.getFullYear();
-
             var formattedDate1 = month1 + "/" + day1 + "/" + year1;
 
-            console.log(formattedDate1)
-
-
-
             // get icon for weather
-            // get temperature
+            var icon1 = response.list[4].weather[0].icon;
+            var icon1URL = baseIconURL + icon1 + "@2x.png"
+
+            // get temperature and convert to fahrenheit
+            var tempF1 = (response.list[4].main.temp - 273.15) * 1.80 + 32;
+            tempF1 = Math.round(tempF1);
+            console.log(tempF1);
+
             // get humidity
+            var humidity1;
             // append it to the card
 
 
