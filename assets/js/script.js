@@ -12,27 +12,61 @@ var dayOneDisplayDiv = $("#day-two-display")
 var dayOneDisplayDiv = $("#day-three-display")
 var dayOneDisplayDiv = $("#day-four-display")
 var dayOneDisplayDiv = $("#day-five-display")
+var previousCitySearchesDiv = $("#previous-searches")
 
 // Write Functions Here
 
 function getPreviousCities() {
+   // call local storage getPreviousCities
+   // assign previous cities to previousCitySearches
+   previousCitySearches = JSON.parse(localStorage.getItem("city"))
 
+   console.log(previousCitySearches);
+
+   // loop through the array
+   for (var i = 0; i < previousCitySearches.length; i++) {
+
+      // create a div with the innerHTML being the name of the city
+      var newPreviousCityDiv = $("<div>");
+      newPreviousCityDiv = newPreviousCityDiv.attr("class", "previous-searches-button")
+      newPreviousCityDiv.html(previousCitySearches[i])
+      // append that button to the section
+      previousCitySearchesDiv.append(newPreviousCityDiv);
+
+   }
+
+// create a new function called 'callWeatherData'
+
+// then add the onClick for the button
+
+   /*
+      new function called 'callWeatherData'
+
+      onClick of a button (event listener) - grab that button's innerHTML (data-*, wherever it's stored) - then make that AJAX call 
+   */
 };
+
+function callWeatherData(event) {
+   event.preventDefault();
+
+   var thisButtonsCity = $(this).text();
+   console.log(thisButtonsCity);
+
+   
+
+}
 
 function storeData(event) {
    event.preventDefault();
 
-   var userInput = cityUserInput.val();
+   currentCitySearch = cityUserInput.val();
 
-   currentCitySearch = "";
-   currentCitySearch = userInput;
-
-   if (userInput === "") {
+   if (currentCitySearch === "") {
       alert("Please put in a valid city")
       return
-   };
+   }
 
-   previousCitySearches.push(userInput);
+   previousCitySearches.push(currentCitySearch);
 
    localStorage.setItem("city", JSON.stringify(previousCitySearches))
 
@@ -96,7 +130,6 @@ function presentTodaysWeatherData(event) {
       }).then(
          function (response) {
             console.log(response)
-            console.log(response.list[4].dt)
 
             // this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
             var baseIconURL = "http://openweathermap.org/img/wn/"
@@ -118,7 +151,7 @@ function presentTodaysWeatherData(event) {
             console.log(tempF1);
 
             // get humidity
-            var humidity1;
+            // var humidity1 = response.
             // append it to the card
 
 
@@ -127,5 +160,9 @@ function presentTodaysWeatherData(event) {
    }, 500);
 };
 
+getPreviousCities();
+
+
 cityInputButton.on("click", storeData);
 cityInputButton.on("click", presentTodaysWeatherData);
+$(".previous-searches-button").on("click", callWeatherData)
