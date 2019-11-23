@@ -17,6 +17,7 @@ var previousCitySearchesDiv = $("#previous-searches")
 // Write Functions Here
 
 // writing a clearDailyForecast function to run inside the PresentTodaysWeather function so that it clears out the previous search's info
+
 function clearDailyForecast() {
    dayOneDisplayDiv.empty();
    dayTwoDisplayDiv.empty();
@@ -24,14 +25,17 @@ function clearDailyForecast() {
    dayFourDisplayDiv.empty();
    dayFiveDisplayDiv.empty();
 
-}
+};
 
 function getPreviousCities() {
    // call local storage getPreviousCities
    // assign previous cities to previousCitySearches
    previousCitySearches = JSON.parse(localStorage.getItem("city"))
+   previousCitySearches = previousCitySearches.reverse();
 
    console.log(previousCitySearches);
+
+   previousCitySearchesDiv.empty();
 
    // loop through the array
    for (var i = 0; i < previousCitySearches.length; i++) {
@@ -44,23 +48,20 @@ function getPreviousCities() {
       previousCitySearchesDiv.append(newPreviousCityDiv);
 
    }
-
-   /*
-      new function called 'callWeatherData'
-
-      onClick of a button (event listener) - grab that button's innerHTML (data-*, wherever it's stored) - then make that AJAX call 
-   */
 };
 
 function callWeatherData(event) {
    event.preventDefault();
 
+   clearDailyForecast();
+
+   // getting the text from the button
    var thisButtonsCity = $(this).text();
    console.log(thisButtonsCity);
 
+   todaysWeather(thisButtonsCity);
 
-
-}
+};
 
 function storeData(event) {
    event.preventDefault();
@@ -78,17 +79,13 @@ function storeData(event) {
 
 };
 
-function presentTodaysWeatherData(event) {
-   event.preventDefault();
-
-   clearDailyForecast(); 
-
+function todaysWeather(cityName) {
    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
    var uviURL = "http://api.openweathermap.org/data/2.5/uvi?"
    var fiveDayURL = "http://api.openweathermap.org/data/2.5/forecast?"
-   var userInput = cityUserInput.val() + "&";
+   // var userInput = cityUserInput.val() + "&";
    var apiKey = "appid=3c98be5119ec5cf431d72d940860a3bc";
-   var queryURL = weatherURL + userInput + apiKey;
+   var queryURL = weatherURL + cityName + "&" + apiKey;
    var lat = "";
    var long = "";
    var cityID = "";
@@ -247,13 +244,41 @@ function presentTodaysWeatherData(event) {
          }
       )
    }, 500);
+
+
 };
+
+function presentTodaysWeatherData(event) {
+   event.preventDefault();
+
+   clearDailyForecast(); 
+   
+   var userInput = cityUserInput.val();
+
+   todaysWeather(userInput);
+
+   previousCitySearches = [];
+   getPreviousCities();
+
+};
+
+function clearSearchHistory(event) {
+   event.preventDefault();
+
+   previousCitySearches = [];
+
+   localStorage.setItem("city", JSON.stringify(previousCitySearches))
+
+   previousCitySearchesDiv.empty();
+
+
+}
 
 getPreviousCities();
 
-
 cityInputButton.on("click", storeData);
 cityInputButton.on("click", presentTodaysWeatherData);
-$(".previous-searches-button").on("click", callWeatherData)
+$(".previous-searches-button").on("click", callWeatherData);
+$("#clear-button").on("click", clearSearchHistory);
 
 // i want to create a function that clears the previous searches

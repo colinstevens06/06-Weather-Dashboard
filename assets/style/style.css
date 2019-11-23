@@ -1,0 +1,47 @@
+html, body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   color: #8f8d91;
+}
+
+.weather-dashboard {
+   background-color: #000111;
+   color: #ffffff;
+}
+
+/* Search Column Styling */
+
+.search-section {
+   background-color: #f7f5fa;
+   padding: 10px;
+   padding-bottom: 30px;
+}
+
+.search-for-city {
+   color: #000000;
+   font-size: 1.25rem;
+   margin-bottom: 10px;
+}
+
+.previous-searches:first-child {
+   border-radius: 5px;
+}
+
+.previous-searches-button {
+   padding: 10px 16px;
+   background-color: #ffffff;
+   border: 1px solid #c2c0c4;
+   
+}
+
+.previous-searches-button:hover {
+   cursor: pointer;
+}
+
+.btn-secondary {
+   display: block;
+}
+
+
+
