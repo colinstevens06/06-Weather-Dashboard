@@ -62,4 +62,28 @@ html, body {
    height: 50px;
 }
 
+.weather-data {
+   color: #000000;
+   margin-bottom: 1rem;
+}
+
+.five-day-forecast {
+   padding: 14px 16px;
+}
+
+.five-day-forecast-text {
+   color: #000000;
+}
+
+.forecast-days {
+   display: inline-block;
+   padding: 7px 8px;
+   margin-right: 10px;
+   margin-bottom: 15px;
+   border: 1px solid #0d126e;
+   background-color: #1183f5;
+   color: #ffffff;
+   border-radius: 5px;
+}
+
 
