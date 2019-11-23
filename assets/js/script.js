@@ -39,23 +39,13 @@ function getPreviousCities() {
    // assign previous cities to previousCitySearches
    previousCitySearches = JSON.parse(localStorage.getItem("city"))
 
-   console.log(previousCitySearches)
-   console.log(previousCitySearches[0])
-   console.log($(".todays-weather"))
-   
    // if localstorage is empty, leave this function
-   if (previousCitySearches[0] === undefined) {
-      $(".todays-weather")[0].style.display = "none";
-      $(".five-day-forecast")[0].style.display = "none";
+   if (previousCitySearches === null) {
       return
    }
 
    // reversing the order so that the previous searches section is reverse order (so most recent at the top)
    previousCitySearches = previousCitySearches.reverse();
-
-   // calling the todaysWeather function and populating my most recent
-   todaysWeather(previousCitySearches[0])
-
 
    previousCitySearchesDiv.empty();
 
@@ -313,6 +303,9 @@ function clearSearchHistory(event) {
 }
 
 getPreviousCities();
+
+// calling the todaysWeather function and populating my most recent
+todaysWeather(previousCitySearches[0])
 
 cityInputButton.on("click", storeData);
 cityInputButton.on("click", presentTodaysWeatherData);
