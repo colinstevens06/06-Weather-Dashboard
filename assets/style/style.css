@@ -43,5 +43,23 @@ html, body {
    display: block;
 }
 
+/* Main Weather Dash Styling */
+.todays-weather {
+   padding: 14px 16px;
+   display: block;
+   border: 1px solid #c2c0c4;
+   border-radius: 5px;
+   width: 100%;
+}
+
+.main-city-info {
+   font-size: 1.5rem;
+   color: #000000;
+   font-weight: 600;
+}
+
+.todays-icon {
+   height: 50px;
+}
 
 

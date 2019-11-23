@@ -3,7 +3,7 @@ var currentCitySearch = "";
 
 var cityUserInput = $("#city-input");
 var cityInputButton = $("#city-input-button");
-var cityTodaysDate = $("#todays-date")
+var cityTodaysHumidity = $("#todays-humidity")
 var cityTodaysTemperature = $("#todays-temperature")
 var cityTodaysWindSpeed = $("#todays-wind-speed")
 var cityTodaysUvIndex = $("#todays-uv-index")
@@ -12,7 +12,12 @@ var dayTwoDisplayDiv = $("#day-two-display")
 var dayThreeDisplayDiv = $("#day-three-display")
 var dayFourDisplayDiv = $("#day-four-display")
 var dayFiveDisplayDiv = $("#day-five-display")
+var mainCityInfoDiv = $("#main-city-info")
 var previousCitySearchesDiv = $("#previous-searches")
+
+// this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
+var baseIconURL = "http://openweathermap.org/img/wn/"
+var baseIconURLsuffix = "@2x.png"
 
 // Write Functions Here
 
@@ -24,6 +29,8 @@ function clearDailyForecast() {
    dayThreeDisplayDiv.empty();
    dayFourDisplayDiv.empty();
    dayFiveDisplayDiv.empty();
+   mainCityInfoDiv.empty();
+
 
 };
 
@@ -89,6 +96,7 @@ function todaysWeather(cityName) {
    var lat = "";
    var long = "";
    var cityID = "";
+   var cityNameText = "";
 
    // this call sets the weather data for today
    $.ajax({
@@ -99,19 +107,49 @@ function todaysWeather(cityName) {
 
          console.log(response)
 
-         // empty the 
-
          // converting temperature from kelvin to fahrenheit
          var tempF = (response.main.temp - 273.15) * 1.80 + 32;
 
-         // attaching content to text
+         // attaching temperature to text
          cityTodaysTemperature.text("Temperature: " + tempF.toFixed(2))
+
+         // attaching humidity to text
+         cityTodaysHumidity.text("Humidity: " + response.main.humidity + "%")
+
+         //attaching wind speed
          cityTodaysWindSpeed.text("Wind speed: " + response.wind.speed)
 
          // assigning lat and long for the UV Index
          lat = "&lat=" + response.coord.lat;
          long = "&lon=" + response.coord.lon;
          cityID = "&id=" + response.id;
+
+         // getting city name
+         cityNameText = response.name;
+
+         // get and setting today's date
+         var todaysDate = new Date(response.dt * 1000);
+         var todaysMonth = todaysDate.getMonth();
+         var todaysDay = todaysDate.getDay();
+         var todaysYear = todaysDate.getFullYear();
+
+         var formattedToday = cityNameText + " (" + todaysMonth + "/" + todaysDay + "/" + todaysYear + ")";
+
+         var todaysIcon = response.weather[0].icon;
+         var todaysIconURL = baseIconURL + todaysIcon + baseIconURLsuffix;
+
+         var todaysIconElement = $("<img>")
+         todaysIconElement.attr("src", todaysIconURL)
+         todaysIconElement.attr("class", "todays-icon")
+
+         $("#main-city-info").append(formattedToday)
+         $("#main-city-info").append(todaysIconElement)
+
+
+
+
+
+
 
       })
 
@@ -138,10 +176,9 @@ function todaysWeather(cityName) {
          function (response) {
             console.log(response)
 
-            // this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
-            var baseIconURL = "http://openweathermap.org/img/wn/"
 
-             // defining all the dates here. I'm takinga UNIX code, multiplying that number by 1000 to get milliseconds instead of seconds, then using JavaScript date functions to get the data I need.
+
+            // defining all the dates here. I'm takinga UNIX code, multiplying that number by 1000 to get milliseconds instead of seconds, then using JavaScript date functions to get the data I need.
             var date1 = new Date(response.list[3].dt * 1000);
             var date2 = new Date(response.list[11].dt * 1000);
             var date3 = new Date(response.list[19].dt * 1000);
@@ -163,18 +200,14 @@ function todaysWeather(cityName) {
             var day5 = date5.getDay();
 
             // defining all the years
-            var year1 = date1.getFullYear();
-            var year2 = date2.getFullYear();
-            var year3 = date3.getFullYear();
-            var year4 = date4.getFullYear();
-            var year5 = date5.getFullYear();
+            var year = date1.getFullYear();
 
             // formatting all the dates
-            var formattedDate1 = month1 + "/" + day1 + "/" + year1;
-            var formattedDate2 = month2 + "/" + day2 + "/" + year2;
-            var formattedDate3 = month3 + "/" + day3 + "/" + year3;
-            var formattedDate4 = month4 + "/" + day4 + "/" + year4;
-            var formattedDate5 = month5 + "/" + day5 + "/" + year5;
+            var formattedDate1 = month1 + "/" + day1 + "/" + year;
+            var formattedDate2 = month2 + "/" + day2 + "/" + year;
+            var formattedDate3 = month3 + "/" + day3 + "/" + year;
+            var formattedDate4 = month4 + "/" + day4 + "/" + year;
+            var formattedDate5 = month5 + "/" + day5 + "/" + year;
 
             // get icon sfor weather
             var icon1 = response.list[3].weather[0].icon;
@@ -233,12 +266,12 @@ function todaysWeather(cityName) {
             dayFiveDisplayDiv.append("<br>" + "Temperature: " + tempF5 + "<br>");
 
             // append humidity to the cards
-            dayOneDisplayDiv.append("Humidity: " + humidity1);
-            dayTwoDisplayDiv.append("Humidity: " + humidity2);
-            dayThreeDisplayDiv.append("Humidity: " + humidity3);
-            dayFourDisplayDiv.append("Humidity: " + humidity4);
-            dayFiveDisplayDiv.append("Humidity: " + humidity5);
-            
+            dayOneDisplayDiv.append("Humidity: " + humidity1 + "%");
+            dayTwoDisplayDiv.append("Humidity: " + humidity2) + "%";
+            dayThreeDisplayDiv.append("Humidity: " + humidity3) + "%";
+            dayFourDisplayDiv.append("Humidity: " + humidity4) + "%";
+            dayFiveDisplayDiv.append("Humidity: " + humidity5) + "%";
+
 
 
          }
@@ -251,8 +284,8 @@ function todaysWeather(cityName) {
 function presentTodaysWeatherData(event) {
    event.preventDefault();
 
-   clearDailyForecast(); 
-   
+   clearDailyForecast();
+
    var userInput = cityUserInput.val();
 
    todaysWeather(userInput);
