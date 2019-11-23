@@ -37,10 +37,13 @@ function clearDailyForecast() {
 function getPreviousCities() {
    // call local storage getPreviousCities
    // assign previous cities to previousCitySearches
-   if (previousCitySearches !== true) {
+   previousCitySearches = JSON.parse(localStorage.getItem("city"))
+   
+   // if localstorage is empty, leave this function
+   if (previousCitySearches === null) {
       return
    }
-   previousCitySearches = JSON.parse(localStorage.getItem("city"))
+
    previousCitySearches = previousCitySearches.reverse();
 
    console.log(previousCitySearches);
