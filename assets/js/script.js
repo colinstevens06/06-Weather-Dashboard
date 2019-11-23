@@ -40,11 +40,13 @@ function getPreviousCities() {
    previousCitySearches = JSON.parse(localStorage.getItem("city"))
 
    console.log(previousCitySearches)
+   console.log(previousCitySearches[0])
+   console.log($(".todays-weather"))
    
    // if localstorage is empty, leave this function
-   if (previousCitySearches === null || previousCitySearches === []) {
-      // $(".todays-weather").style.display = "none";
-      // $(".five-day-forecase").style.display = "none";
+   if (previousCitySearches[0] === undefined) {
+      $(".todays-weather")[0].style.display = "none";
+      $(".five-day-forecast")[0].style.display = "none";
       return
    }
 
