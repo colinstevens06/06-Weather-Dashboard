@@ -16,7 +16,7 @@ var mainCityInfoDiv = $("#main-city-info")
 var previousCitySearchesDiv = $("#previous-searches")
 
 // this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
-var baseIconURL = "http://openweathermap.org/img/wn/"
+var baseIconURL = "https://openweathermap.org/img/wn/"
 var baseIconURLsuffix = "@2x.png"
 
 // Write Functions Here
@@ -94,8 +94,8 @@ function storeData(event) {
 
 function todaysWeather(cityName) {
    var weatherURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-   var uviURL = "http://api.openweathermap.org/data/2.5/uvi?"
-   var fiveDayURL = "http://api.openweathermap.org/data/2.5/forecast?"
+   var uviURL = "https://api.openweathermap.org/data/2.5/uvi?"
+   var fiveDayURL = "https://api.openweathermap.org/data/2.5/forecast?"
    // var userInput = cityUserInput.val() + "&";
    var apiKey = "appid=3c98be5119ec5cf431d72d940860a3bc";
    var queryURL = weatherURL + cityName + "&" + apiKey;
