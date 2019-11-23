@@ -24,6 +24,11 @@ html, body {
    margin-bottom: 10px;
 }
 
+input {
+   padding: 10px;
+   border: 1px solid #c2c0c4;
+}
+
 .previous-searches:first-child {
    border-radius: 5px;
 }
@@ -55,7 +60,7 @@ html, body {
 
 .main-city-info {
    font-size: 1.5rem;
-   color: #000000;
+   color: #fdfcff;
    font-weight: 600;
 }
 
@@ -90,8 +95,38 @@ html, body {
 
 
 /* Media Queries */
-@media screen and (max-width: 992px) {
-   .main-city-info {
+@media screen and (min-width: 992px) {
+   .todays-weather {
+      width: 750px;
    }
+}
+
+@media screen and (max-width: 575px) {
+   .search-for-city {
+      text-align: center;
+      font-size: 1.75rem;
+      margin-bottom: 25px;
+   }
+
+   .search-section {
+      padding-bottom: 0;
+   }
+
+   input {
+      width: 75%;
+   }
+
+   .btn-secondary {
+      font-size: 1.5rem;
+      margin-top: 1rem !important;
+      margin-bottom: 1rem;
+   }
+
+   .main-city-info {
+      font-size: 1.75rem;
+      text-align: center;
+   }
+
+
 }
 

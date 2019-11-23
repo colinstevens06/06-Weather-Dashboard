@@ -38,15 +38,22 @@ function getPreviousCities() {
    // call local storage getPreviousCities
    // assign previous cities to previousCitySearches
    previousCitySearches = JSON.parse(localStorage.getItem("city"))
+
+   console.log(previousCitySearches)
    
    // if localstorage is empty, leave this function
-   if (previousCitySearches === null) {
+   if (previousCitySearches === null || previousCitySearches === []) {
+      // $(".todays-weather").style.display = "none";
+      // $(".five-day-forecase").style.display = "none";
       return
    }
 
+   // reversing the order so that the previous searches section is reverse order (so most recent at the top)
    previousCitySearches = previousCitySearches.reverse();
 
-   console.log(previousCitySearches);
+   // calling the todaysWeather function and populating my most recent
+   todaysWeather(previousCitySearches[0])
+
 
    previousCitySearchesDiv.empty();
 
@@ -57,6 +64,7 @@ function getPreviousCities() {
       var newPreviousCityDiv = $("<div>");
       newPreviousCityDiv = newPreviousCityDiv.attr("class", "previous-searches-button")
       newPreviousCityDiv.html(previousCitySearches[i])
+
       // append that button to the section
       previousCitySearchesDiv.append(newPreviousCityDiv);
 
@@ -65,15 +73,11 @@ function getPreviousCities() {
 
 function callWeatherData(event) {
    event.preventDefault();
-
    clearDailyForecast();
 
    // getting the text from the button
    var thisButtonsCity = $(this).text();
-   console.log(thisButtonsCity);
-
    todaysWeather(thisButtonsCity);
-
 };
 
 function storeData(event) {
@@ -110,9 +114,6 @@ function todaysWeather(cityName) {
       method: "GET"
    }).then(
       function (response) {
-
-         console.log(response)
-
          // converting temperature from kelvin to fahrenheit
          var tempF = (response.main.temp - 273.15) * 1.80 + 32;
 
@@ -180,10 +181,6 @@ function todaysWeather(cityName) {
          method: "GET"
       }).then(
          function (response) {
-            console.log(response)
-
-
-
             // defining all the dates here. I'm takinga UNIX code, multiplying that number by 1000 to get milliseconds instead of seconds, then using JavaScript date functions to get the data I need.
             var date1 = new Date(response.list[3].dt * 1000);
             var date2 = new Date(response.list[11].dt * 1000);
