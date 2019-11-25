@@ -105,6 +105,7 @@ function todaysWeather(cityName) {
    if (cityName === undefined) {
       firstScreenLoadDiv.css("display", "block");
       weatherAfterSearchDiv.css("display", "none");
+      return;
    } else {
       firstScreenLoadDiv.css("display", "none");
       weatherAfterSearchDiv.css("display", "block");
