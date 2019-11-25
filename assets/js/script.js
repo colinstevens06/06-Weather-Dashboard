@@ -102,6 +102,7 @@ function todaysWeather(cityName) {
    var cityID = "";
    var cityNameText = "";
 
+   // if there are no previous searches, show the initial search screen and return. if there are previous searches, show the most recent search. and show this for all future searches.
    if (cityName === undefined) {
       firstScreenLoadDiv.css("display", "block");
       weatherAfterSearchDiv.css("display", "none");
