@@ -14,6 +14,8 @@ var dayFourDisplayDiv = $("#day-four-display")
 var dayFiveDisplayDiv = $("#day-five-display")
 var mainCityInfoDiv = $("#main-city-info")
 var previousCitySearchesDiv = $("#previous-searches")
+var firstScreenLoadDiv = $("#first-screen-load")
+var weatherAfterSearchDiv = $("#weather-after-search")
 
 // this is the URL that needs to be used at the beginning of every icon query. need to finish the query with @2x.png every time, too
 var baseIconURL = "https://openweathermap.org/img/wn/"
@@ -99,6 +101,15 @@ function todaysWeather(cityName) {
    var long = "";
    var cityID = "";
    var cityNameText = "";
+
+   if (cityName === undefined) {
+      firstScreenLoadDiv.css("display", "block");
+      weatherAfterSearchDiv.css("display", "none");
+   } else {
+      firstScreenLoadDiv.css("display", "none");
+      weatherAfterSearchDiv.css("display", "block");
+
+   }
 
    // this call sets the weather data for today
    $.ajax({

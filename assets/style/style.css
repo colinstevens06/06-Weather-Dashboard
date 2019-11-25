@@ -10,6 +10,11 @@ html, body {
    color: #ffffff;
 }
 
+/* Initial screen load */
+.first-screen-load {
+   padding: 14px 16px;
+}
+
 /* Search Column Styling */
 
 .search-section {
