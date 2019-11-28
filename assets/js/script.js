@@ -40,7 +40,8 @@ function getPreviousCities() {
    // call local storage getPreviousCities
    // assign previous cities to previousCitySearches
    previousCitySearches = JSON.parse(localStorage.getItem("city"))
-
+   console.log("Previous Cities Working")
+   console.log(previousCitySearches)
    // if localstorage is empty, leave this function
    if (previousCitySearches === null) {
       previousCitySearches = [];
@@ -68,7 +69,7 @@ function getPreviousCities() {
 function callWeatherData(event) {
    event.preventDefault();
    clearDailyForecast();
-
+   console.log('hello')
    // getting the text from the button
    var thisButtonsCity = $(this).text();
    todaysWeather(thisButtonsCity);
@@ -156,12 +157,6 @@ function todaysWeather(cityName) {
 
          $("#main-city-info").append(formattedToday)
          $("#main-city-info").append(todaysIconElement)
-
-
-
-
-
-
 
       })
 
@@ -323,9 +318,10 @@ function initialLoad() {
    }
 }
 
+// get previous cities and populate buttons with them
 getPreviousCities();
 
-// calling the todaysWeather function and populating my most recent
+// calling the todaysWeather function and populating my most recent search
 initialLoad();
 
 
