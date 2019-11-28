@@ -61,7 +61,7 @@ function getPreviousCities() {
 
       // append that button to the section
       previousCitySearchesDiv.append(newPreviousCityDiv);
-      
+
    }
 
    // event listener
@@ -122,6 +122,8 @@ function todaysWeather(cityName) {
       method: "GET"
    }).then(
       function (response) {
+
+         console.log(response)
          // converting temperature from kelvin to fahrenheit
          var tempF = (response.main.temp - 273.15) * 1.80 + 32;
 
@@ -143,9 +145,10 @@ function todaysWeather(cityName) {
          cityNameText = response.name;
 
          // get and setting today's date
-         var todaysDate = new Date(response.dt * 1000);
-         var todaysMonth = todaysDate.getMonth();
-         var todaysDay = todaysDate.getDay();
+         var todaysDate = new Date();
+         console.log(todaysDate)
+         var todaysMonth = todaysDate.getMonth() + 1;
+         var todaysDay = todaysDate.getDate();
          var todaysYear = todaysDate.getFullYear();
 
          var formattedToday = cityNameText + " (" + todaysMonth + "/" + todaysDay + "/" + todaysYear + ")";
@@ -184,35 +187,45 @@ function todaysWeather(cityName) {
       }).then(
          function (response) {
             // defining all the dates here. I'm takinga UNIX code, multiplying that number by 1000 to get milliseconds instead of seconds, then using JavaScript date functions to get the data I need.
-            var date1 = new Date(response.list[3].dt * 1000);
-            var date2 = new Date(response.list[11].dt * 1000);
-            var date3 = new Date(response.list[19].dt * 1000);
-            var date4 = new Date(response.list[27].dt * 1000);
-            var date5 = new Date(response.list[35].dt * 1000);
-
-            // devining all the months here
-            var month1 = date1.getMonth();
-            var month2 = date2.getMonth();
-            var month3 = date3.getMonth();
-            var month4 = date4.getMonth();
-            var month5 = date5.getMonth();
-
-            // defining all the days
-            var day1 = date1.getDay();
-            var day2 = date2.getDay();
-            var day3 = date3.getDay();
-            var day4 = date4.getDay();
-            var day5 = date5.getDay();
-
-            // defining all the years
-            var year = date1.getFullYear();
+            var todaysDate = new Date();
+            var currentDate = new Date();
+            currentDate.setDate(currentDate.getDate() + 1);
+            
+            // setting up date 1 for forecast
+            var month1 = currentDate.getMonth() + 1;
+            var day1 = currentDate.getDate();
+            var year1 = currentDate.getFullYear();
+            
+            // increasing date by 1 then setting day 2
+            currentDate.setDate(currentDate.getDate() + 1);
+            var month2 = currentDate.getMonth() + 1;
+            var day2 = currentDate.getDate();
+            var year2 = currentDate.getFullYear();
+            
+            // increasing date by 1 then setting day 2
+            currentDate.setDate(currentDate.getDate() + 1);
+            var month3 = currentDate.getMonth() + 1;
+            var day3 = currentDate.getDate();
+            var year3 = currentDate.getFullYear();
+            
+            // increasing date by 1 then setting day 2
+            currentDate.setDate(currentDate.getDate() + 1);
+            var month4 = currentDate.getMonth() + 1;
+            var day4 = currentDate.getDate();
+            var year4 = currentDate.getFullYear();
+            
+            // increasing date by 1 then setting day 2
+            currentDate.setDate(currentDate.getDate() + 1);
+            var month5 = currentDate.getMonth() + 1;
+            var day5 = currentDate.getDate();
+            var year5 = currentDate.getFullYear();
 
             // formatting all the dates
-            var formattedDate1 = month1 + "/" + day1 + "/" + year;
-            var formattedDate2 = month2 + "/" + day2 + "/" + year;
-            var formattedDate3 = month3 + "/" + day3 + "/" + year;
-            var formattedDate4 = month4 + "/" + day4 + "/" + year;
-            var formattedDate5 = month5 + "/" + day5 + "/" + year;
+            var formattedDate1 = month1 + "/" + day1 + "/" + year1;
+            var formattedDate2 = month2 + "/" + day2 + "/" + year2;
+            var formattedDate3 = month3 + "/" + day3 + "/" + year3;
+            var formattedDate4 = month4 + "/" + day4 + "/" + year4;
+            var formattedDate5 = month5 + "/" + day5 + "/" + year5;
 
             // get icon sfor weather
             var icon1 = response.list[3].weather[0].icon;
