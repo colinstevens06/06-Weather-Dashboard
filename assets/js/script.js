@@ -33,7 +33,6 @@ function clearDailyForecast() {
    dayFiveDisplayDiv.empty();
    mainCityInfoDiv.empty();
 
-
 };
 
 function getPreviousCities() {
@@ -62,8 +61,11 @@ function getPreviousCities() {
 
       // append that button to the section
       previousCitySearchesDiv.append(newPreviousCityDiv);
-
+      
    }
+
+   // event listener
+   $(".previous-searches-button").on("click", callWeatherData);
 };
 
 function callWeatherData(event) {
@@ -324,10 +326,8 @@ getPreviousCities();
 // calling the todaysWeather function and populating my most recent search
 initialLoad();
 
-
 cityInputButton.on("click", storeData);
 cityInputButton.on("click", presentTodaysWeatherData);
-$(".previous-searches-button").on("click", callWeatherData);
 $("#clear-button").on("click", clearSearchHistory);
 
-// i want to create a function that clears the previous searches
+
