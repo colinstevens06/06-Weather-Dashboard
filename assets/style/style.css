@@ -100,41 +100,40 @@ input {
 
 
 /* Media Queries */
-/* @media screen and (min-width: 1054px) {
+@media screen and (min-width: 576px) {
    .todays-weather {
-      width: 750px;
+      width: 300px;
+   }
+}
+
+@media screen and (min-width: 724px) {
+   .todays-weather {
+      width: 450px;
+   }
+}
+
+@media screen and (min-width: 848px) {
+   .todays-weather {
+      width: 600px;
    }
 }
 
 @media screen and (min-width: 1054px) {
    .todays-weather {
-      width: 60px;
-   }
-}
-
-@media screen and (max-width: 850px) {
-   .todays-weather {
-      width: 450px;
-   }
-} */
-
-/* @media screen and (min-width: 715px) {
-   .todays-weather {
-      width: 100%;
-   }
-}
-
-@media screen and (min-width: 575px) {
-   .todays-weather {
-      width: 100%;
-   }
-} */
-
-@media screen and (min-width: 992px) {
-   .todays-weather {
       width: 750px;
    }
 }
+
+/* @media screen and (min-width: 1054px) {
+   .todays-weather {
+      width: 60px;
+   }
+} */
+
+
+
+
+
 
 @media screen and (max-width: 575px) {
    .search-for-city {
